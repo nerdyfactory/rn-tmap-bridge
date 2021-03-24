@@ -1,5 +1,5 @@
 {
-  "name": "SktNativeSdkTest",
+  "name": "rn-tmap-bridge",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -40,5 +40,22 @@
       "json",
       "node"
     ]
-  }
+  },
+  "description": "React native bridge implementation for TMap",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerdyfactory/rn-tmap-bridge.git"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-bridge",
+    "tmap"
+  ],
+  "author": "nikolasvasconcelos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nerdyfactory/rn-tmap-bridge/issues"
+  },
+  "homepage": "https://github.com/nerdyfactory/rn-tmap-bridge#readme"
 }

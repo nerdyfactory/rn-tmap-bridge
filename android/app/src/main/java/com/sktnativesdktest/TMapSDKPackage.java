@@ -25,5 +25,4 @@ public class TMapSDKPackage implements ReactPackage {
 
     return modules;
   }
-
 }
