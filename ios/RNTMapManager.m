@@ -40,6 +40,26 @@ RCT_EXPORT_METHOD(setHttpsMode:(BOOL)isActive)
   [self._mapView setHttpsMode:isActive];
 }
 
+RCT_EXPORT_METHOD(setIcon:(UIImage *)icon)
+{
+  [self._mapView setIcon:icon];
+}
+
+RCT_EXPORT_METHOD(showIcon:(BOOL)visible)
+{
+  [self._mapView setIconVisibility:visible];
+}
+
+RCT_EXPORT_METHOD(zoomIn)
+{
+  [self._mapView zoomIn];
+}
+
+RCT_EXPORT_METHOD(zoomOut)
+{
+  [self._mapView zoomOut];
+}
+
 RCT_EXPORT_METHOD(setCoordinates:(double)lat lng:(double)lng)
 {
   NSNumber *myDoubleNumber = [NSNumber numberWithDouble:lat];
