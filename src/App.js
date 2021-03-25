@@ -13,8 +13,7 @@ import {StyleSheet, StatusBar} from 'react-native';
 import MapView from './MapView';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-declare const global: {HermesInternal: null | {}};
+import Marker from './assets/imgs/mapMarker.png';
 
 const App = () => {
   return (
@@ -25,6 +24,7 @@ const App = () => {
         style={styles.map}
         lat={48.577741}
         lng={27.602706}
+        markerIcon={Marker}
       />
     </>
   );
