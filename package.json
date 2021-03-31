@@ -54,7 +54,10 @@
     "map",
     "location"
   ],
-  "author": "nikolasvasconcelos",
+  "author": {
+    "name": "nikolasvasconcelos",
+    "email": "nikolas@nerdyfactory.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nerdyfactory/rn-tmap-bridge/issues"

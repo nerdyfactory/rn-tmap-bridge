@@ -1,14 +1,18 @@
 // RNTMapManager.m
-#import "TMapView.h"
-#import "TMapPoint.h"
+#import "TMap.h"
 #import <React/RCTLog.h>
 #import <React/RCTViewManager.h>
 
 @interface RNTMapManager : RCTViewManager
 @property (readwrite, nonnull) TMapView* _mapView;
+@property (retain, nonatomic) IBOutlet UIView *mapContainerView;
+@property (retain, nonatomic) IBOutlet UIView *menuView;
 @end
 
 @implementation RNTMapManager
+
+
+static TMapGpsManager *__gps = nil;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -92,9 +96,68 @@ RCT_EXPORT_METHOD(searchPlace:(NSString *)searchInput)
   [TMapTapi invokeSearchPortal:searchInput];
 }
 
+#pragma mark - TMapViewDelegate
+
 - (void)mapview
 {
   [TMapTapi invokeSetLocation:@"신도림역" coordinate:self._mapView.centerCoordinate];
+}
+
+- (void)route
+{
+    [TMapTapi invokeRoute:@"신도림역" coordinate:self._mapView.centerCoordinate];
+}
+
+- (void)onClick:(TMapPoint *)TMP
+{
+  [self._mapView setLocationPoint:TMP];
+}
+
+- (void)onDidScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
+{
+    //NSLog(@"zoomLevel: %d point: %@", zoomLevel, mapPoint);
+}
+
+- (void)onDidEndScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
+{
+    NSLog(@"zoomLevel: %d point: %@", (int)zoomLevel, mapPoint);
+    //    NSLog(@"trackingMode %d", [_mapView getIsTracking]);
+}
+
+- (void)GPS_ON
+{
+    if (__gps == nil) {
+        __gps = [[TMapGpsManager alloc] init];
+    }
+    
+    // 백그라운드 위치정보 얻기
+    //[__gps setAlwaysAuthorization:YES];
+    
+    [__gps setDelegate:self];
+    [__gps openGps];
+    
+}
+
+- (void)GPS_OFF
+{
+    [__gps closeGps];
+    
+    __gps = nil;
+}
+
+- (void)viewDidLoad {
+  [self createMapView];
+}
+
+#pragma mark - Map View
+
+- (void)createMapView {
+    self._mapView = [[TMapView alloc] initWithFrame:self.mapContainerView.bounds];
+    [self._mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [self._mapView setDelegate:self];
+    [self._mapView setGpsManagersDelegate:self];
+    [self.mapContainerView addSubview:self._mapView];
+    
 }
 
 - (UIView *)view
