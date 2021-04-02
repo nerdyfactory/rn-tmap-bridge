@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {useCallback, useEffect} from 'react';
 import {NativeModules, requireNativeComponent, View} from 'react-native';
 import SearchInput from './ui/searchInput';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import ZoomButton from './ui/zoomButton';
 
 const {RNTMap: TMap} = NativeModules;
@@ -31,12 +32,12 @@ function MapView(props) {
   }, []);
 
   return (
-    <View>
+    <SafeAreaProvider style={{flex: 1}}>
       <SearchInput handleSearch={handleSearch} />
       <RNTMap {...props} />
       <ZoomButton label="+" onZoom={TMap.zoomIn} />
       <ZoomButton label="-" onZoom={TMap.zoomOut} />
-    </View>
+    </SafeAreaProvider>
   );
 }
 

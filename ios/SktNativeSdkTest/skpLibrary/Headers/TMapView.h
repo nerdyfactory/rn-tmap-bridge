@@ -10,6 +10,7 @@
 
 #import "TMapBaseView.h"
 #import "TMap.h"
+#import "TMapPoint.h"
 
 typedef enum {
     POSITION_BOTTOMLEFT,        // 하단 좌측

@@ -1,5 +1,5 @@
 // RNTMapManager.m
-#import "TMap.h"
+#import "TMapView.h"
 #import <React/RCTLog.h>
 #import <React/RCTViewManager.h>
 
