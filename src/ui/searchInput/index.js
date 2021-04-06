@@ -1,22 +1,33 @@
 import React, {useState, useCallback} from 'react';
 import {StyleSheet, TextInput} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 export default function SearchInput({handleSearch}) {
-  const {top} = useSafeAreaInsets();
   const [searchValue, setSearchValue] = useState('');
 
   const search = useCallback(() => {
     handleSearch(searchValue);
   }, [handleSearch, searchValue]);
 
+  const handleKeyPress = useCallback(
+    (nativeEvent) => {
+      if (nativeEvent?.key === 'Enter') {
+        search();
+      }
+    },
+    [search],
+  );
+
   return (
     <TextInput
-      style={{...styles.search, marginTop: top}}
+      style={{...styles.search}}
       placeholder="Search"
       onChangeText={setSearchValue}
-      value={searchValue}
       onEndEditing={search}
+      onBlur={search}
+      onKeyPress={handleKeyPress}
+      value={searchValue}
+      blurOnSubmit
+      enablesReturnKeyAutomatically
     />
   );
 }
@@ -26,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingLeft: 15,
     position: 'absolute',
-    top: 5,
+    top: 50,
     left: 10,
     right: 10,
     borderRadius: 5,
@@ -41,7 +52,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5,
   },
 });

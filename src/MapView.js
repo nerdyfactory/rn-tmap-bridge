@@ -1,8 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useCallback, useEffect} from 'react';
-import {NativeModules, requireNativeComponent, View} from 'react-native';
+import React, {Fragment, useCallback, useEffect} from 'react';
+import {
+  NativeModules,
+  requireNativeComponent,
+  StyleSheet,
+  View,
+} from 'react-native';
 import SearchInput from './ui/searchInput';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import ZoomButton from './ui/zoomButton';
 
 const {RNTMap: TMap} = NativeModules;
@@ -31,13 +35,23 @@ function MapView(props) {
     TMap.searchPlace(value);
   }, []);
 
+  const zoomIn = useCallback(() => {
+    TMap.zoomIn();
+  }, []);
+
+  const zoomOut = useCallback(() => {
+    TMap.zoomOut();
+  }, []);
+
   return (
-    <SafeAreaProvider style={{flex: 1}}>
-      <SearchInput handleSearch={handleSearch} />
+    <Fragment>
       <RNTMap {...props} />
-      <ZoomButton label="+" onZoom={TMap.zoomIn} />
-      <ZoomButton label="-" onZoom={TMap.zoomOut} />
-    </SafeAreaProvider>
+      <SearchInput handleSearch={handleSearch} />
+      <View style={styles.zoomWrapper}>
+        <ZoomButton label="+" onZoom={zoomIn} />
+        <ZoomButton label="-" onZoom={zoomOut} />
+      </View>
+    </Fragment>
   );
 }
 
@@ -46,6 +60,17 @@ MapView.propTypes = {
   lat: PropTypes.number.isRequired,
   lng: PropTypes.number.isRequired,
 };
+
+const styles = StyleSheet.create({
+  zoomWrapper: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    width: 50,
+    height: 90,
+    justifyContent: 'space-evenly',
+  },
+});
 
 const RNTMap = requireNativeComponent('RNTMap', MapView);
 

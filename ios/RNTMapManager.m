@@ -115,7 +115,7 @@ RCT_EXPORT_METHOD(searchPlace:(NSString *)searchInput)
 
 - (void)onDidScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
 {
-    //NSLog(@"zoomLevel: %d point: %@", zoomLevel, mapPoint);
+    NSLog(@"zoomLevel: %d point: %@", zoomLevel, mapPoint);
 }
 
 - (void)onDidEndScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
