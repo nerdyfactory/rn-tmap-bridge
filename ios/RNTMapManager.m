@@ -91,10 +91,11 @@ RCT_EXPORT_METHOD(setMarker:(UIImage *)markerImg markerName:(NSString *)markerNa
   [self._mapView addTMapMarkerItemID:markerName Marker:marker1 animated:NO];
 }
 
-RCT_EXPORT_METHOD(search)
+RCT_EXPORT_METHOD(search:(NSString *)searchValue)
 {
   BOOL installed = [TMapTapi isTmapApplicationInstalled];
   NSLog(@"installed: %d", installed);
+  [TMapTapi invokeSearchPortal:searchValue];
 }
 
 #pragma mark - TMapViewDelegate

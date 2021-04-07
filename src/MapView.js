@@ -15,7 +15,6 @@ function MapView(props) {
   const {appKey, lat, lng} = props;
 
   useEffect(() => {
-    TMap.search();
     setMapKey(appKey);
     if (lat && lng) {
       TMap.setCoordinates(lat, lng);
@@ -33,7 +32,7 @@ function MapView(props) {
   }, []);
 
   const handleSearch = useCallback((value) => {
-    TMap.search();
+    TMap.search(value || '');
   }, []);
 
   const zoomIn = useCallback(() => {
