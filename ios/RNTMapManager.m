@@ -91,9 +91,10 @@ RCT_EXPORT_METHOD(setMarker:(UIImage *)markerImg markerName:(NSString *)markerNa
   [self._mapView addTMapMarkerItemID:markerName Marker:marker1 animated:NO];
 }
 
-RCT_EXPORT_METHOD(searchPlace:(NSString *)searchInput)
+RCT_EXPORT_METHOD(search)
 {
-  [TMapTapi invokeSearchPortal:searchInput];
+  BOOL installed = [TMapTapi isTmapApplicationInstalled];
+  NSLog(@"installed: %d", installed);
 }
 
 #pragma mark - TMapViewDelegate
@@ -113,15 +114,10 @@ RCT_EXPORT_METHOD(searchPlace:(NSString *)searchInput)
   [self._mapView setLocationPoint:TMP];
 }
 
-- (void)onDidScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
+- (void)onLongClick:(TMapPoint*)TMP
 {
-    NSLog(@"zoomLevel: %d point: %@", zoomLevel, mapPoint);
-}
-
-- (void)onDidEndScrollWithZoomLevel:(NSInteger)zoomLevel centerPoint:(TMapPoint*)mapPoint
-{
-    NSLog(@"zoomLevel: %d point: %@", (int)zoomLevel, mapPoint);
-    //    NSLog(@"trackingMode %d", [_mapView getIsTracking]);
+  // CLLocationCoordinate2D centerCoord = {TMP.coordinate.latitude ,TMP.coordinate.longitude};
+  // [self._mapView setCenterCoordinate:centerCoord];
 }
 
 - (void)GPS_ON
@@ -145,27 +141,16 @@ RCT_EXPORT_METHOD(searchPlace:(NSString *)searchInput)
     __gps = nil;
 }
 
-- (void)viewDidLoad {
-  [self createMapView];
-}
-
 #pragma mark - Map View
-
-- (void)createMapView {
-    self._mapView = [[TMapView alloc] initWithFrame:self.mapContainerView.bounds];
-    [self._mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-    [self._mapView setDelegate:self];
-    [self._mapView setGpsManagersDelegate:self];
-    [self.mapContainerView addSubview:self._mapView];
-    
-}
 
 - (UIView *)view
 {
   [self._mapView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
   [self._mapView setDelegate:self];
   [self._mapView setGpsManagersDelegate:self];
+  [self._mapView setSKTMapApiKey:@"l7xx9d4d587fe7104a57b8feda886c846d1f"];
   [TMapTapi invokeSetLocation:@"신도림역" coordinate:self._mapView.centerCoordinate];
+  [TMapTapi setSKTMapAuthenticationWithDelegate:self apiKey:@"l7xx9d4d587fe7104a57b8feda886c846d1f"];
   return [self._mapView init];
 }
 
