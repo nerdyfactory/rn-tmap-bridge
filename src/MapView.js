@@ -33,7 +33,7 @@ function MapView(props) {
   }, []);
 
   const handleSearch = useCallback((value) => {
-    TMap.searchPlace(value);
+    TMap.search();
   }, []);
 
   const zoomIn = useCallback(() => {

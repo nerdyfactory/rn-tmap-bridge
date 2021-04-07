@@ -4,7 +4,8 @@ This repository is the [react native bridge](https://reactnative.dev/docs/native
 
 ## Installation
 
-WiP
+1) run `npm install` or `yarn install` on the root directory
+2) run `pod install` in `ios` directory
 
 ## Usage
 
