@@ -1,3 +1,3 @@
 import RNTMap from './MapView';
 
-export default RNTMap;
+module.exports = RNTMap;
