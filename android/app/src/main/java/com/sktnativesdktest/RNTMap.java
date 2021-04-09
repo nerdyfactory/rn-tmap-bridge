@@ -1,6 +1,7 @@
 package com.sktnativesdktest;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -11,14 +12,13 @@ import com.skt.Tmap.*;
 public class RNTMap extends ReactContextBaseJavaModule {
 
   private static final String REACT_CLASS = "RNTMap";
-  ReactApplicationContext mCallerContext;
-
   private TMapView mMapView = null;
-  TMapGpsManager gps = null;
+  private TMapGpsManager gps = null;
 
   RNTMap(ReactApplicationContext context) {
     super(context);
-    this.mMapView =  new TMapView(mCallerContext);
+    this.mMapView =  new TMapView(context);
+    this.gps =  new TMapGpsManager(context);
     this.mMapView.initView();
   }
 
@@ -49,7 +49,7 @@ public class RNTMap extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setCoordinates(Double lat, Double lng) {
-    this.mMapView.setCenterPoint(lng,lat);
+    this.mMapView.setLocationPoint(lng,lat);
   }
 
   @ReactMethod
