@@ -1,25 +1,32 @@
 package com.sktnativesdktest;
 
-import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.uimanager.SimpleViewManager;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.ViewProps;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.skt.Tmap.*;
-public class RNTMap extends ReactContextBaseJavaModule {
 
-  private static final String REACT_CLASS = "RNTMap";
-  private TMapView mMapView = null;
-  private TMapGpsManager gps = null;
+public class RNTMap extends SimpleViewManager<TMapView> {
 
-  RNTMap(ReactApplicationContext context) {
-    super(context);
-    this.mMapView =  new TMapView(context);
-    this.gps =  new TMapGpsManager(context);
-    this.mMapView.initView();
+  public static final String REACT_CLASS = "RNTMap";
+  ReactApplicationContext mCallerContext;
+
+  public RNTMap(ReactApplicationContext reactContext) {
+    this.mCallerContext = reactContext;
+  }
+
+  @NonNull
+  @Override
+  protected TMapView createViewInstance(@NonNull ThemedReactContext reactContext) {
+    return new TMapView(reactContext, 37.570841, 126.988205, 16);
   }
 
   @Override
@@ -27,32 +34,18 @@ public class RNTMap extends ReactContextBaseJavaModule {
     return REACT_CLASS;
   }
 
-  @ReactMethod
-  public void setApiKey(String key) {
-    this.mMapView.setSKTMapApiKey(key);
+  @ReactProp(name = "appKey")
+  public void setAppKey(TMapView view, @Nullable String appKey) {
+    view.setSKTMapApiKey(appKey);
   }
 
-  @ReactMethod
-  public void setHttpsMode(Boolean isActive) {
-    this.mMapView.setHttpsMode(isActive);
+  @ReactProp(name = "lat", defaultDouble = 126.988205)
+  public void setLatitude(TMapView view, double lat) {
+    view.setCenterPoint(view.getLongitude(), lat);
   }
 
-  @ReactMethod
-  public void zoomIn() {
-    this.mMapView.MapZoomIn();
-  }
-
-  @ReactMethod
-  public void zoomOut() {
-    this.mMapView.MapZoomOut();
-  }
-
-  @ReactMethod
-  public void setCoordinates(Double lat, Double lng) {
-    this.mMapView.setLocationPoint(lng,lat);
-  }
-
-  @ReactMethod
-  public void search(String searchInput) {
+  @ReactProp(name = "lng", defaultDouble = 126.988205)
+  public void setLongitude(TMapView view, @Nullable double lng) {
+    view.setCenterPoint(lng, view.getLatitude());
   }
 }

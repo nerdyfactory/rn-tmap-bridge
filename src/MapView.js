@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Fragment, useCallback, useEffect} from 'react';
 import {
   NativeModules,
+  Platform,
   requireNativeComponent,
   StyleSheet,
   View,
@@ -11,18 +12,22 @@ import ZoomButton from './ui/zoomButton';
 
 const {RNTMap: TMap} = NativeModules;
 
+const IS_IOS = Platform.OS === 'ios';
+
 function MapView(props) {
   const {appKey, lat, lng} = props;
 
   useEffect(() => {
-    setMapKey(appKey);
-    if (lat && lng) {
-      TMap.setCoordinates(lat, lng);
+    if (IS_IOS) {
+      setMapKey(appKey);
+      if (lat && lng) {
+        TMap.setCoordinates(lat, lng);
+      }
     }
   });
 
   useEffect(() => {
-    if (lat && lng) {
+    if (lat && lng && IS_IOS) {
       TMap.setCoordinates(lat, lng);
     }
   }, [lat, lng]);
@@ -36,11 +41,11 @@ function MapView(props) {
   }, []);
 
   const zoomIn = useCallback(() => {
-    TMap.zoomIn();
+    IS_IOS && TMap.zoomIn();
   }, []);
 
   const zoomOut = useCallback(() => {
-    TMap.zoomOut();
+    IS_IOS && TMap.zoomOut();
   }, []);
 
   return (
