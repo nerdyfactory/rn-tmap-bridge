@@ -2,6 +2,8 @@ package com.sktnativesdktest;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.LinearLayout;
+
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
@@ -12,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+  private LinearLayout baseLayout;
 
   private final ReactNativeHost mReactNativeHost =
       new ReactNativeHost(this) {
@@ -25,7 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          packages.add(new RNTMapPackage());
+            packages.add(new RNTMapPackage());
           return packages;
         }
 
