@@ -33,11 +33,11 @@ function MapView(props) {
   }, [lat, lng]);
 
   const setMapKey = useCallback((key) => {
-    TMap.setApiKey(key);
+    IS_IOS && TMap.setApiKey(key);
   }, []);
 
   const handleSearch = useCallback((value) => {
-    TMap.search(value || '');
+    IS_IOS && TMap.search(value || '');
   }, []);
 
   const zoomIn = useCallback(() => {

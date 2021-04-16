@@ -16,7 +16,7 @@ import com.facebook.react.views.image.ReactImageView;
 import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
 
-public class RNTMapViewManager extends SimpleViewManager<TMapView> {
+public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
     public static final String REACT_CLASS = "RNTMap";
     private static String APIKEY = "l7xx9d4d587fe7104a57b8feda886c846d1f";
@@ -39,23 +39,22 @@ public class RNTMapViewManager extends SimpleViewManager<TMapView> {
      */
     @NonNull
     @Override
-    protected TMapView createViewInstance(@NonNull ThemedReactContext reactContext) {
-        _mapView = MainActivity.getTMap();
-        return _mapView;
+    protected RNTMapView createViewInstance(@NonNull ThemedReactContext reactContext) {
+        _mapView = new TMapView(reactContext);
+        _mapView.setCenterPoint(126.988205, 37.551135);
+        _mapView.setSKTMapApiKey(APIKEY);
+        return new RNTMapView(reactContext, _mapView);
     }
 
     @ReactProp(name = "appKey")
-    public void setAppKey(TMapView view, @Nullable String appKey) {
-        view.setSKTMapApiKey(appKey);
+    public void setAppKey(RNTMapView view, @Nullable String appKey) {
     }
 
     @ReactProp(name = "lat", defaultDouble = 126.988205)
-    public void setLatitude(TMapView view, double lat) {
-
+    public void setLatitude(RNTMapView view, double lat) {
     }
 
     @ReactProp(name = "lng", defaultDouble = 126.988205)
-    public void setLongitude(TMapView view, @Nullable double lng) {
-
+    public void setLongitude(RNTMapView view, @Nullable double lng) {
     }
 }
