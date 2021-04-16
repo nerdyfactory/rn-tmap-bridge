@@ -1,6 +1,7 @@
 package com.sktnativesdktest;
 
 import android.app.Activity;
+import android.graphics.PointF;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -9,12 +10,17 @@ import androidx.annotation.Nullable;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.views.image.ReactImageView;
+import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
@@ -56,5 +62,20 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
     @ReactProp(name = "lng", defaultDouble = 126.988205)
     public void setLongitude(RNTMapView view, @Nullable double lng) {
+    }
+
+    public Map getExportedCustomBubblingEventTypeConstants() {
+        return MapBuilder.builder()
+            .put(
+                "onPressEvent",
+                MapBuilder.of(
+                    "phasedRegistrationNames",
+                    MapBuilder.of("bubbled", "onPress")))
+            .put(
+                "onPressUpEvent",
+                MapBuilder.of(
+                    "phasedRegistrationNames",
+                    MapBuilder.of("bubbled", "onPress")))
+            .build();
     }
 }
