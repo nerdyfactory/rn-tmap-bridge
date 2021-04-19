@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class RNTMapModule extends ReactContextBaseJavaModule {
 
-    public static final String REACT_CLASS = "RNTMap";
+    public static final String REACT_CLASS = "RNTMapAndroidController";
     private TMapView _mapView;
 
     RNTMapModule(ReactApplicationContext context, TMapView tMap) {
@@ -30,5 +30,16 @@ public class RNTMapModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return REACT_CLASS;
+    }
+
+
+    @ReactMethod
+    public void zoomIn() {
+        _mapView.MapZoomIn();
+    }
+
+    @ReactMethod
+    public void zoomOut() {
+        _mapView.MapZoomOut();
     }
 }

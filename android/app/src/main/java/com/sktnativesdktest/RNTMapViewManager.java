@@ -29,8 +29,9 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
     ReactApplicationContext mCallerContext;
     private TMapView _mapView;
 
-    public RNTMapViewManager(ReactApplicationContext reactContext) {
+    public RNTMapViewManager(ReactApplicationContext reactContext, TMapView tmap) {
         mCallerContext = reactContext;
+        _mapView = tmap;
     }
 
     @Override
@@ -46,9 +47,6 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
     @NonNull
     @Override
     protected RNTMapView createViewInstance(@NonNull ThemedReactContext reactContext) {
-        _mapView = new TMapView(reactContext);
-        _mapView.setCenterPoint(126.988205, 37.551135);
-        _mapView.setSKTMapApiKey(APIKEY);
         return new RNTMapView(reactContext, _mapView);
     }
 
@@ -66,16 +64,16 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
     public Map getExportedCustomBubblingEventTypeConstants() {
         return MapBuilder.builder()
-            .put(
-                "onPressEvent",
-                MapBuilder.of(
-                    "phasedRegistrationNames",
-                    MapBuilder.of("bubbled", "onPress")))
-            .put(
-                "onPressUpEvent",
-                MapBuilder.of(
-                    "phasedRegistrationNames",
-                    MapBuilder.of("bubbled", "onPress")))
-            .build();
+                .put(
+                        "onPressEvent",
+                        MapBuilder.of(
+                                "phasedRegistrationNames",
+                                MapBuilder.of("bubbled", "onPress")))
+                .put(
+                        "onPressUpEvent",
+                        MapBuilder.of(
+                                "phasedRegistrationNames",
+                                MapBuilder.of("bubbled", "onPress")))
+                .build();
     }
 }

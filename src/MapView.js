@@ -10,7 +10,7 @@ import {
 import SearchInput from './ui/searchInput';
 import ZoomButton from './ui/zoomButton';
 
-const {RNTMap: TMap} = NativeModules;
+const {RNTMap: TMap, RNTMapAndroidController: TMapAndroid} = NativeModules;
 
 const IS_IOS = Platform.OS === 'ios';
 
@@ -41,11 +41,11 @@ function MapView(props) {
   }, []);
 
   const zoomIn = useCallback(() => {
-    IS_IOS && TMap.zoomIn();
+    IS_IOS ? TMap.zoomIn() : TMapAndroid.zoomIn();
   }, []);
 
   const zoomOut = useCallback(() => {
-    IS_IOS && TMap.zoomOut();
+    IS_IOS ? TMap.zoomOut() : TMapAndroid.zoomOut();
   }, []);
 
   return (
