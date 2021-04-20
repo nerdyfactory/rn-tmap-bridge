@@ -48,9 +48,14 @@ function MapView(props) {
     IS_IOS ? TMap.zoomOut() : TMapAndroid.zoomOut();
   }, []);
 
+  const handlePress = useCallback((e) => {
+    console.log(e);
+    !IS_IOS && TMapAndroid.handleOnPress();
+  }, []);
+
   return (
     <Fragment>
-      <RNTMap {...props} />
+      <RNTMap onPress={handlePress} {...props} />
       <SearchInput handleSearch={handleSearch} />
       <View style={styles.zoomWrapper}>
         <ZoomButton label="+" onZoom={zoomIn} />

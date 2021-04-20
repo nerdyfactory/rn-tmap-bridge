@@ -127,9 +127,6 @@ RCT_EXPORT_METHOD(search:(NSString *)searchValue)
         __gps = [[TMapGpsManager alloc] init];
     }
     
-    // 백그라운드 위치정보 얻기
-    //[__gps setAlwaysAuthorization:YES];
-    
     [__gps setDelegate:self];
     [__gps openGps];
     

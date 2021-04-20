@@ -49,12 +49,8 @@ public class RNTMapView extends LinearLayout {
         event.putString("message", "MyMessage");
         ReactContext reactContext = (ReactContext)getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
-                getId(),
-                "onPressEvent",
-                event);
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
-                getId(),
-                "onPressUpEvent",
-                event);
+            getId(),
+            "onPressEvent",
+            event);
     }
 }

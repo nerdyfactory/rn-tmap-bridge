@@ -64,16 +64,11 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
     public Map getExportedCustomBubblingEventTypeConstants() {
         return MapBuilder.builder()
-                .put(
-                        "onPressEvent",
-                        MapBuilder.of(
-                                "phasedRegistrationNames",
-                                MapBuilder.of("bubbled", "onPress")))
-                .put(
-                        "onPressUpEvent",
-                        MapBuilder.of(
-                                "phasedRegistrationNames",
-                                MapBuilder.of("bubbled", "onPress")))
-                .build();
+            .put(
+                "onPressEvent",
+                MapBuilder.of(
+                    "phasedRegistrationNames",
+                    MapBuilder.of("bubbled", "onPress")))
+            .build();
     }
 }
