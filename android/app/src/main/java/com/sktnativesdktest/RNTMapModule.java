@@ -25,25 +25,12 @@ public class RNTMapModule extends ReactContextBaseJavaModule {
     private TMapTapi apiManager;
     private TMapView _mapView;
 
-    RNTMapModule(ReactApplicationContext context, TMapView tMap) {
+    RNTMapModule(ReactApplicationContext context, TMapView tMap, TMapTapi mapApi) {
         super(context);
-        tMap.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
-            @Override
-            public boolean onPressEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                tMap.setCenterPoint(tMapPoint.getLongitude(), tMapPoint.getLatitude());
-                return true;
-            }
-
-            @Override
-            public boolean onPressUpEvent(ArrayList arrayList, ArrayList arrayList1, TMapPoint tMapPoint, PointF pointF) {
-                tMap.setCenterPoint(tMapPoint.getLongitude(), tMapPoint.getLatitude());
-                return true;
-            }
-        });
         _mapView = tMap;
-        apiManager = new TMapTapi(context);
-        ArrayList result = apiManager.getTMapDownUrl();
-        System.out.println("URL >>>>" + result);
+        apiManager = mapApi;
+        apiManager.invokeTmap();
+        System.out.println("URL >>>>" + apiManager.isTmapApplicationInstalled());
     }
 
     /**
@@ -68,6 +55,11 @@ public class RNTMapModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void handleOnPress() {
-        System.out.println("IT WAS HERE");
+
+    }
+
+    @ReactMethod
+    public void handleSearch() {
+        apiManager.invokeSearchPortal("T타워");
     }
 }
