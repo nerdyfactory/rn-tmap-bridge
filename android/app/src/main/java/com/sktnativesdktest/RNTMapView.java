@@ -14,15 +14,13 @@ import com.skt.Tmap.TMapView;
 
 import java.util.ArrayList;
 
-public class RNTMapView extends View {
-    private LinearLayout layout;
+public class RNTMapView extends LinearLayout {
     private Context context;
     private static TMapView _mapView;
 
     public RNTMapView(Context context, TMapView tMap) {
         super(context);
         this.context = context;
-        LinearLayout layout = new LinearLayout(this.context);
         this._mapView = tMap;
         this._mapView.setOnClickListenerCallBack(new TMapView.OnClickListenerCallback() {
             @Override
@@ -37,21 +35,12 @@ public class RNTMapView extends View {
                 return false;
             }
         });
-        layout.addView(this);
-        layout.addView(this._mapView);
+        this.addView(this._mapView);
     }
 
     public void init() {
-        inflate(context, R.layout.tmap_view, layout);
+        inflate(context, R.layout.tmap_view, this);
     }
 
-    public void onReceiveNativeEvent() {
-        WritableMap event = Arguments.createMap();
-        event.putString("message", "MyMessage");
-        ReactContext reactContext = (ReactContext)getContext();
-        reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
-            getId(),
-            "onPressEvent",
-            event);
-    }
+
 }

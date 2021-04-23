@@ -1,14 +1,13 @@
 package com.sktnativesdktest;
 
-import android.graphics.PointF;
 import android.os.Looper;
+import android.widget.LinearLayout;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.skt.Tmap.TMapPoint;
 import com.skt.Tmap.TMapTapi;
 import com.skt.Tmap.TMapView;
 
@@ -26,7 +25,7 @@ public class RNTMapPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new RNTMapViewManager(reactContext, _mapView)
+                new RNTMapViewManager(reactContext,_mapView)
         );
     }
 

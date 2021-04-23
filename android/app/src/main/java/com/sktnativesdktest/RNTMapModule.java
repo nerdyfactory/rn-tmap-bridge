@@ -59,7 +59,7 @@ public class RNTMapModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void handleSearch() {
-        apiManager.invokeSearchPortal("T타워");
+    public void handleSearch(String searchInput) {
+        apiManager.invokeSearchPortal(searchInput);
     }
 }

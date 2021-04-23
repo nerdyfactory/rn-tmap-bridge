@@ -31,7 +31,7 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
 
     public RNTMapViewManager(ReactApplicationContext reactContext, TMapView tmap) {
         mCallerContext = reactContext;
-        _mapView = tmap;
+        this._mapView = tmap;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RNTMapViewManager extends SimpleViewManager<RNTMapView> {
     @NonNull
     @Override
     protected RNTMapView createViewInstance(@NonNull ThemedReactContext reactContext) {
-        return new RNTMapView(reactContext, _mapView);
+        return new RNTMapView(reactContext, this._mapView);
     }
 
     @ReactProp(name = "appKey")
