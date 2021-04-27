@@ -37,7 +37,7 @@ function MapView(props) {
   }, []);
 
   const handleSearch = useCallback((value) => {
-    IS_IOS && TMap.search(value || '');
+    IS_IOS ? TMap.search(value || '') : TMapAndroid.handleSearch(value);
   }, []);
 
   const zoomIn = useCallback(() => {
@@ -49,7 +49,6 @@ function MapView(props) {
   }, []);
 
   const handlePress = useCallback((e) => {
-    console.log(e);
     !IS_IOS && TMapAndroid.handleOnPress();
   }, []);
 
